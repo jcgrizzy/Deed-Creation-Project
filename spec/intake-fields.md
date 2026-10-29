@@ -18,6 +18,7 @@ Each field ID doubles as a merge field in deed templates (`{{field_id}}`).
 | `requester_phone` | Phone | phone | Y | PROPOSED | |
 | `preferred_language` | Language | enum: `en`, `es` | Y | DERIVED | Selects email template |
 | `payment_received` | Payment confirmed | bool | Y | DERIVED | From LawPay; one fee per property |
+| `acknowledgement` | I acknowledge and understand the above (doc stamps / property tax disclaimer) | bool | Y | CURRENT | Must be `true` to submit; wording in `spec/cognito-build.md` |
 
 ## 2. Deed
 

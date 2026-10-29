@@ -11,6 +11,8 @@ spec/intake-fields.md         Intake field list (merge-field IDs)
 spec/routing-rules.md         STOP / FLAG conditions
 spec/workflow-stages.md       File stages and owners
 spec/florida-requirements.md  Execution & recording checklist (attorney-verified status)
+spec/cognito-build.md         Cognito Forms build instructions for the intake form
+design/                       Approved intake form mockup
 templates/                    Client intake emails (EN/ES); deed templates to come
 samples/                      Fictitious test records only
 ```

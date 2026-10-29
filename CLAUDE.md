@@ -16,6 +16,8 @@ The agent **fills and flags**. It does not compose deeds from scratch and it doe
 | `spec/routing-rules.md` | STOP (attorney review) and FLAG conditions |
 | `spec/workflow-stages.md` | File stages, owners, entry/exit criteria |
 | `spec/florida-requirements.md` | Statutory execution/recording checklist (each item has a verification status) |
+| `spec/cognito-build.md` | Cognito Forms build instructions for the client intake form (current task) |
+| `design/` | Approved intake form mockup (PNG + static HTML) |
 | `config/firm.json` | Fees, payment link, firm info — never hard-code these elsewhere |
 | `templates/` | Client intake emails (EN/ES); deed templates go here as they are added |
 | `samples/` | **Fictitious** test records only |
