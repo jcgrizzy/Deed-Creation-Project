@@ -1,0 +1,10 @@
+{
+  "firm_name": "Kelley, Grant & Tanis, P.A.",
+  "deed_fee_per_property_usd": 500,
+  "deed_fee_includes_recording": true,
+  "collects_documentary_stamps": false,
+  "consultation_fee_usd": 250,
+  "consultation_length_minutes": 30,
+  "payment_link": "https://secure.lawpay.com/pages/kelleyandgrantpa/operating",
+  "dor_doc_stamp_reference": "Florida Dept. of Revenue - Documentary Stamp Tax (floridarevenue.com)"
+}

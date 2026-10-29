@@ -1,0 +1,9 @@
+.env
+.env.*
+*.local.json
+node_modules/
+__pycache__/
+.DS_Store
+# Never commit live client files
+/live/
+/exports/
