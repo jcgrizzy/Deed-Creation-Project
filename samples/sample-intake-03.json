@@ -1,0 +1,92 @@
+{
+  "_note": "FICTITIOUS test record. Not a real person, trust, or property.",
+  "requester_name": "Ana Ejemplo",
+  "requester_email": "ana.ejemplo@example.com",
+  "requester_phone": "954-555-0177",
+  "requester_role": "grantor",
+  "preferred_language": "es",
+  "payment_received": true,
+  "acknowledgement": true,
+  "deed_type": "quitclaim",
+  "consideration_amount": 10.0,
+  "number_of_deeds": 2,
+  "execution_method": "in_office",
+  "witnesses_provided_by": "firm",
+  "property_blocks": [
+    {
+      "property_address": "22 Muestra Lane, Coral Springs, FL 33000",
+      "property_county": "Broward",
+      "parcel_id": "0000 00 00 0002",
+      "legal_description": "Lot 4, Block 1, PLACEHOLDER PARK, according to the plat thereof recorded in Plat Book 0, Page 0, of the Public Records of Broward County, Florida.",
+      "vesting_deed_ref": "Instr. No. 000000001",
+      "vesting_deed_names": [
+        "Ana Ejemplo"
+      ],
+      "has_mortgage": false,
+      "grantors": [
+        {
+          "grantor_type": "individual",
+          "grantor_name": "Ana Ejemplo",
+          "grantor_address": "10 Otra Street, Miami, FL 33100",
+          "grantor_marital_status": "married",
+          "grantor_descriptor": "a married woman",
+          "is_homestead": false,
+          "grantor_photo_id": "doc-ref:fake-0201",
+          "grantor_deceased": false
+        }
+      ],
+      "grantees": [
+        {
+          "grantee_type": "individual",
+          "grantee_name": "Sofia Ejemplo",
+          "grantee_address": "22 Muestra Lane, Coral Springs, FL 33000",
+          "grantee_photo_id": "doc-ref:fake-0202"
+        }
+      ],
+      "notary_county": "Palm Beach"
+    },
+    {
+      "property_address": "10 Otra Street, Miami, FL 33100",
+      "property_county": "Miami-Dade",
+      "parcel_id": "00-0000-000-0000",
+      "legal_description": "Lot 9, Block 2, EXAMPLE GARDENS, according to the plat thereof recorded in Plat Book 0, Page 0, of the Public Records of Miami-Dade County, Florida.",
+      "vesting_deed_ref": "OR Book 00000, Page 0002",
+      "vesting_deed_names": [
+        "Ana Ejemplo, as Trustee"
+      ],
+      "has_mortgage": false,
+      "grantors": [
+        {
+          "grantor_type": "trust",
+          "grantor_name": "Ana Ejemplo Living Trust",
+          "grantor_trust_date": "2014-04-23",
+          "grantor_signatory_name": "Ana Ejemplo",
+          "grantor_trust_docs": "doc-ref:fake-0203",
+          "grantor_address": "10 Otra Street, Miami, FL 33100",
+          "grantor_deceased": false
+        }
+      ],
+      "grantees": [
+        {
+          "grantee_type": "individual",
+          "grantee_name": "Ana Ejemplo",
+          "grantee_address": "10 Otra Street, Miami, FL 33100",
+          "grantee_photo_id": "doc-ref:fake-0201"
+        }
+      ],
+      "notary_county": "Palm Beach"
+    }
+  ],
+  "_expected_routing": {
+    "property_1": [
+      "F4"
+    ],
+    "property_2": [
+      "S4"
+    ]
+  },
+  "_expected_template": {
+    "property_1": "Non-homestead warranty clause; single signer",
+    "property_2": "Trust grantor (§689.073 language)"
+  }
+}

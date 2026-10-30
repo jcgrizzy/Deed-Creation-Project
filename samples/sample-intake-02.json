@@ -1,0 +1,111 @@
+{
+  "_note": "FICTITIOUS test record. Not a real person, company, or property.",
+  "requester_name": "Daniel Sample",
+  "requester_email": "daniel.sample@example.com",
+  "requester_phone": "561-555-0142",
+  "requester_role": "other",
+  "requester_role_other": "Grantor's son",
+  "grantor_authorization_doc": "doc-ref:fake-0101",
+  "preferred_language": "en",
+  "payment_received": true,
+  "acknowledgement": true,
+  "deed_type": "quitclaim",
+  "consideration_amount": 10.0,
+  "number_of_deeds": 2,
+  "execution_method": "mail_out",
+  "witnesses_provided_by": "client",
+  "property_blocks": [
+    {
+      "property_address": "456 Placeholder Avenue, Delray Beach, FL 33444",
+      "property_county": "Palm Beach",
+      "parcel_id": "00-00-00-00-00-000-0001",
+      "legal_description": "Lot 2, Block 3, EXAMPLE ESTATES, according to the plat thereof recorded in Plat Book 0, Page 0, of the Public Records of Palm Beach County, Florida.",
+      "vesting_deed_ref": "OR Book 00000, Page 0001",
+      "vesting_deed_names": [
+        "Robert Sample"
+      ],
+      "has_mortgage": false,
+      "all_sign_together": false,
+      "vesting_type": "jtwros",
+      "grantors": [
+        {
+          "grantor_type": "individual",
+          "grantor_name": "Robert Sample",
+          "grantor_address": "456 Placeholder Avenue, Delray Beach, FL 33444",
+          "grantor_marital_status": "married",
+          "is_homestead": true,
+          "grantor_spouse_name": "Linda Sample",
+          "spouse_pronoun": "his",
+          "spouse_same_address": false,
+          "spouse_address": "789 Test Road, Denver, CO 80000",
+          "grantor_photo_id": "doc-ref:fake-0102",
+          "spouse_photo_id": "doc-ref:fake-0103",
+          "grantor_signing_state": "Florida",
+          "spouse_signing_state": "Colorado",
+          "grantor_deceased": false
+        }
+      ],
+      "grantees": [
+        {
+          "grantee_type": "individual",
+          "grantee_name": "Robert Sample",
+          "grantee_address": "456 Placeholder Avenue, Delray Beach, FL 33444",
+          "grantee_photo_id": "doc-ref:fake-0102"
+        },
+        {
+          "grantee_type": "individual",
+          "grantee_name": "Daniel Sample",
+          "grantee_address": "456 Placeholder Avenue, Delray Beach, FL 33444",
+          "grantee_photo_id": "doc-ref:fake-0104"
+        }
+      ]
+    },
+    {
+      "property_address": "100 Fictional Way, Unit 5, Fort Lauderdale, FL 33300",
+      "property_county": "Broward",
+      "parcel_id": "0000 00 00 0000",
+      "legal_description": "Unit 5, SAMPLE TOWERS, a Condominium, according to the Declaration of Condominium thereof, recorded in Official Records Book 0, Page 0, of the Public Records of Broward County, Florida.",
+      "vesting_deed_ref": "Instr. No. 000000000",
+      "vesting_deed_names": [
+        "Sample Holdings LLC"
+      ],
+      "has_mortgage": false,
+      "grantors": [
+        {
+          "grantor_type": "company",
+          "grantor_name": "Sample Holdings LLC",
+          "grantor_entity_state": "Florida",
+          "grantor_entity_status": "active",
+          "grantor_address": "100 Fictional Way, Unit 5, Fort Lauderdale, FL 33300",
+          "grantor_signatory_name": "Robert Sample",
+          "grantor_signatory_title": "Manager",
+          "grantor_deceased": false
+        }
+      ],
+      "grantees": [
+        {
+          "grantee_type": "trust",
+          "grantee_name": "Robert Sample Revocable Trust",
+          "grantee_trust_date": "2020-01-15",
+          "grantee_trustee_names": "Robert Sample",
+          "grantee_trust_docs": "doc-ref:fake-0105",
+          "grantee_address": "456 Placeholder Avenue, Delray Beach, FL 33444"
+        }
+      ]
+    }
+  ],
+  "_expected_routing": {
+    "property_1": [
+      "F10",
+      "F11"
+    ],
+    "property_2": [
+      "F1",
+      "F11"
+    ]
+  },
+  "_expected_template": {
+    "property_1": "Joining spouse; separate signature and notary blocks (FL, CO); JTWROS",
+    "property_2": "Company grantor (BY/ITS); trust grantee"
+  }
+}
