@@ -2,7 +2,11 @@
 
 How the drafting agent turns an intake record into a deed. Source: the seven quitclaim deeds the paralegal sent on October 30, 2026.
 
-**The source deeds are not in this repo.** They are completed client deeds with real names, addresses, parcel IDs, and legal descriptions. They stay in the firm's Microsoft 365 environment. This repo holds only the placeholder version: `templates/deeds/quitclaim-deed.md`.
+**The original source deeds are not in this repo.** They are completed client deeds with real names, addresses, parcel IDs, and legal descriptions, and they stay in the firm's Microsoft 365 environment.
+
+`templates/deeds/source-scrubbed/` holds **scrubbed copies** of all seven: original Word formatting, with every name, address, parcel ID, legal description, and trust date replaced by fictitious values, and the author metadata and page thumbnail removed. The source deeds' drafting errors (C2, C3, C4, etc.) are kept on purpose so the copies match the originals. Use them for layout reference when building the .docx template. The scrub script is not committed because its find-list contains the real data.
+
+The placeholder template is `templates/deeds/quitclaim-deed.md.j2`.
 
 ## Approach
 
