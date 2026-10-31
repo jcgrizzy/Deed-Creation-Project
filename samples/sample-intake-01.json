@@ -3,46 +3,62 @@
   "requester_name": "Maria Example",
   "requester_email": "maria.example@example.com",
   "requester_phone": "561-555-0100",
+  "requester_role": "grantor",
   "preferred_language": "en",
   "payment_received": true,
+  "acknowledgement": true,
   "deed_type": "quitclaim",
-  "consideration_amount": 10.00,
-  "properties": [
+  "consideration_amount": 10.0,
+  "number_of_deeds": 1,
+  "execution_method": "in_office",
+  "witnesses_provided_by": "firm",
+  "property_blocks": [
     {
       "property_address": "123 Sample Street, Boca Raton, FL 33432",
       "property_county": "Palm Beach",
       "parcel_id": "00-00-00-00-00-000-0000",
       "legal_description": "Lot 1, Block 1, SAMPLE SUBDIVISION, according to the plat thereof recorded in Plat Book 0, Page 0, of the Public Records of Palm Beach County, Florida.",
       "vesting_deed_ref": "OR Book 00000, Page 0000",
-      "vesting_deed_names": ["Maria Example"],
+      "vesting_deed_names": [
+        "Maria Example"
+      ],
       "has_mortgage": false,
-      "is_homestead": true
+      "all_sign_together": true,
+      "vesting_type": "tenancy_by_entirety",
+      "grantors": [
+        {
+          "grantor_name": "Maria Example",
+          "grantor_address": "123 Sample Street, Boca Raton, FL 33432",
+          "grantor_type": "individual",
+          "grantor_marital_status": "married",
+          "grantor_spouse_name": "Carlos Example",
+          "grantor_deceased": false,
+          "is_homestead": true,
+          "spouse_same_address": true,
+          "grantor_photo_id": "doc-ref:fake-0001",
+          "spouse_photo_id": "doc-ref:fake-0002",
+          "spouse_pronoun": "her"
+        }
+      ],
+      "grantees": [
+        {
+          "grantee_name": "Maria Example",
+          "grantee_address": "123 Sample Street, Boca Raton, FL 33432",
+          "grantee_type": "individual",
+          "grantee_photo_id": "doc-ref:fake-0003"
+        },
+        {
+          "grantee_name": "Carlos Example",
+          "grantee_address": "123 Sample Street, Boca Raton, FL 33432",
+          "grantee_type": "individual",
+          "grantee_photo_id": "doc-ref:fake-0003"
+        }
+      ],
+      "notary_county": "Palm Beach"
     }
   ],
-  "grantors": [
-    {
-      "grantor_name": "Maria Example",
-      "grantor_address": "123 Sample Street, Boca Raton, FL 33432",
-      "grantor_type": "individual",
-      "grantor_marital_status": "married",
-      "grantor_spouse_name": "Carlos Example",
-      "grantor_deceased": false
-    }
+  "_expected_routing": [
+    "F5"
   ],
-  "grantees": [
-    {
-      "grantee_name": "Maria Example",
-      "grantee_address": "123 Sample Street, Boca Raton, FL 33432",
-      "grantee_type": "individual"
-    },
-    {
-      "grantee_name": "Carlos Example",
-      "grantee_address": "123 Sample Street, Boca Raton, FL 33432",
-      "grantee_type": "individual"
-    }
-  ],
-  "vesting_type": "tenancy_by_entirety",
-  "execution_method": "in_office",
-  "witnesses_provided_by": "firm",
-  "_expected_routing": ["F5"]
+  "_expected_template": "Joining spouse; joint signature block; tenants by the entirety"
 }

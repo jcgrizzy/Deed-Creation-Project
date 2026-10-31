@@ -1,0 +1,121 @@
+{#-
+  MASTER QUITCLAIM DEED TEMPLATE — Jinja2. One render per property block.
+  Clause language is the firm's own (spec/deed-templates.md). Do not edit clause wording without attorney approval.
+  Context: firm (config/firm.json), deed (property block from the intake record: property fields + grantors + grantees
+  + all_sign_together + vesting_type), execution (month, year).
+  Unfilled values render as [[MISSING: field]] via the renderer's undefined handler.
+-#}
+{%- macro grantor_party(g) -%}
+{%- if g.grantor_type == 'trust' -%}
+{{ g.grantor_signatory_name | upper }}, AS TRUSTEE OF THE {{ g.grantor_name | upper }} DATED {{ g.grantor_trust_date_long | upper }}, under Florida Statutes §689.073, with full power and authority to protect, conserve, sell, lease, encumber, or otherwise to manage and dispose of the real property described herein
+{%- elif g.grantor_type == 'company' -%}
+{{ g.grantor_name | upper }}, a {{ g.grantor_entity_state }} {{ g.grantor_entity_form }}
+{%- else -%}
+{{ g.grantor_name | upper }}{% if g.grantor_spouse_name %}, joined by {{ g.spouse_pronoun }} spouse, {{ g.grantor_spouse_name | upper }}{% else %}, {{ g.grantor_descriptor }}{% endif %}
+{%- endif -%}
+{%- endmacro -%}
+{%- macro grantee_party(e) -%}
+{%- if e.grantee_type == 'trust' -%}
+{{ e.grantee_trustee_names | upper }}, AS TRUSTEE OF THE {{ e.grantee_name | upper }} DATED {{ e.grantee_trust_date_long | upper }}
+{%- elif e.grantee_type == 'company' -%}
+{{ e.grantee_name | upper }}, a {{ e.grantee_entity_state }} {{ e.grantee_entity_form }}
+{%- else -%}
+{{ e.grantee_name | upper }}{% if e.grantee_descriptor %}, {{ e.grantee_descriptor }}{% endif %}
+{%- endif -%}
+{%- endmacro -%}
+{%- set grantors = deed.grantors -%}
+{%- set grantees = deed.grantees -%}
+{%- set multi_grantee = grantees | length > 1 -%}
+{%- set vesting_text = {'jtwros': 'as joint tenants with right of survivorship', 'tenants_in_common': 'as tenants in common', 'tenancy_by_entirety': 'as tenants by the entirety'} -%}
+{#- Signers: every grantor (or its signatory) plus any joining spouse -#}
+{%- set signers = [] -%}
+{%- for g in grantors -%}
+  {%- if g.grantor_type == 'company' -%}
+    {%- set _ = signers.append({'sig_lines': [g.grantor_name | upper, 'a ' ~ g.grantor_entity_state ~ ' ' ~ g.grantor_entity_form, 'BY: ' ~ (g.grantor_signatory_name | upper), 'ITS: ' ~ g.grantor_signatory_title], 'ack_name': (g.grantor_signatory_name | upper) ~ ', as ' ~ g.grantor_signatory_title ~ ' of ' ~ (g.grantor_name | upper) ~ ', a ' ~ g.grantor_entity_state ~ ' ' ~ g.grantor_entity_form, 'witness_as': g.grantor_signatory_name, 'state': g.grantor_signing_state}) -%}
+  {%- elif g.grantor_type == 'trust' -%}
+    {%- set _ = signers.append({'sig_lines': [(g.grantor_signatory_name | upper) ~ ', AS TRUSTEE OF THE ' ~ (g.grantor_name | upper) ~ ' DATED ' ~ (g.grantor_trust_date_long | upper)], 'ack_name': grantor_party(g), 'witness_as': g.grantor_signatory_name, 'state': g.grantor_signing_state}) -%}
+  {%- else -%}
+    {%- set _ = signers.append({'sig_lines': [g.grantor_name | upper], 'ack_name': g.grantor_name | upper, 'witness_as': g.grantor_name, 'state': g.grantor_signing_state}) -%}
+    {%- if g.grantor_spouse_name -%}
+      {%- set _ = signers.append({'sig_lines': [g.grantor_spouse_name | upper], 'ack_name': g.grantor_spouse_name | upper, 'witness_as': g.grantor_spouse_name, 'state': g.spouse_signing_state}) -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- set separate = (deed.all_sign_together == false) and (signers | length > 1) -%}
+{%- macro witness_block(n, as_to) -%}
+_______________________________________
+Witness #{{ n }}{% if as_to %} as to {{ as_to }}{% endif %}
+Print Name: _____________________________
+Address: ________________________________
+         ________________________________
+{%- endmacro -%}
+{%- macro notary_block(state, names, plural) -%}
+State of {{ state or '__________________' }}
+County of {{ deed.notary_county or '____________________' }}
+
+The foregoing instrument was acknowledged before me by means of [ ] physical presence or [ ] online notarization, this _____ day of {{ execution.month }}, {{ execution.year }}, by {{ names }}, who {{ 'are' if plural else 'is' }} [ ] personally known to me or who [ ] produced their __________________________________ as identification.
+
+My commission expires: ______________________
+
+______________________________
+Notary Public
+{%- endmacro -%}
+THIS INSTRUMENT PREPARED BY
+AND PLEASE RETURN TO:
+{{ firm.deed_preparer.name }}
+{{ firm.firm_name }}
+{{ firm.deed_preparer.address_line_1 }}
+{{ firm.deed_preparer.address_line_2 }}
+
+{{ parcel_label }}: {{ deed.parcel_id }}
+
+QUITCLAIM DEED
+
+THIS QUITCLAIM DEED, made as of this ___ day of {{ execution.month }}, {{ execution.year }}, by {% for g in grantors %}{{ grantor_party(g) }}{% if loop.revindex > 2 %}, {% elif loop.revindex == 2 %}, and {% endif %}{% endfor %}, whose post office address{{ 'es are' if (grantors | length > 1 or grantors[0].spouse_address) else ' is' }} {% for g in grantors %}{{ g.grantor_address }}{% if g.spouse_address %} and {{ g.spouse_address }}{% endif %}{% if not loop.last %}; {% endif %}{% endfor %} ("Grantor"), and {% for e in grantees %}{{ grantee_party(e) }}{% if loop.revindex > 2 %}, {% elif loop.revindex == 2 %} and {% endif %}{% endfor %}{% if multi_grantee %}, {{ vesting_text[deed.vesting_type] }}{% endif %}, whose post office address{{ 'es are' if multi_grantee else ' is' }} {% for e in grantees | map(attribute='grantee_address') | unique %}{{ e }}{% if not loop.last %}; {% endif %}{% endfor %} ("Grantee").
+
+WITNESSETH, that said Grantor, for and in consideration of the sum of TEN DOLLARS ($10.00), and other good and valuable consideration to said grantor in hand paid by said grantee, the receipt whereof is hereby acknowledged, does hereby remise, release and quitclaim to the said grantee, and grantee's heirs and assigns forever, all the right, title, interest, claim and demand which grantor has in and to the following described land, situate, lying and being in {{ deed.property_county }} County, Florida to-wit:
+
+    {{ deed.legal_description }}
+
+Together with all the tenements, hereditaments and appurtenances thereto belonging or in anywise appertaining.
+
+Subject to taxes for {{ execution.year }} and subsequent years; covenants, conditions, restrictions, easements, reservations and limitations of record, if any.
+
+TO HAVE AND TO HOLD, the same together with any and all appurtenances thereunto belonging or in anywise appertaining, and all the estate, right, title, interest, lien, equity and claim whatsoever of the said Grantor, either in law or equity, to the only proper use, benefit and behalf of the said Grantee forever.
+{%- for g in grantors if g.grantor_type == 'individual' and g.grantor_marital_status == 'married' and g.is_homestead == false and not g.grantor_spouse_name %}
+
+Grantor warrants that at the time of this conveyance, the subject property is not the Grantor's homestead within the meaning set forth in the constitution of the state of Florida, nor is it contiguous to or a part of homestead property.
+{%- endfor %}
+
+IN WITNESS WHEREOF, Grantor has executed this Quitclaim Deed as of the day and year first above written.
+
+Signed, sealed and delivered in the presence of:
+{% if separate %}
+{%- for s in signers %}
+
+______________________________
+{{ s.sig_lines | join('\n') }}
+
+{{ witness_block(1, s.witness_as) }}
+
+{{ witness_block(2, s.witness_as) }}
+
+{{ notary_block(s.state, s.ack_name, false) }}
+{%- endfor %}
+{%- else %}
+{% for s in signers %}
+______________________________
+{{ s.sig_lines | join('\n') }}
+{% endfor %}
+{{ witness_block(1, 'all signatures' if signers | length > 1 else '') }}
+
+{{ witness_block(2, 'all signatures' if signers | length > 1 else '') }}
+
+{{ notary_block(signers[0].state, signers | map(attribute='ack_name') | join(' and '), signers | length > 1) }}
+{%- endif %}
+
+<!-- PAGE 1 FOOTER, 9 pt, first page only -->
+NOTE:
+This Quitclaim Deed has been prepared at the Grantor's request without examination or legal opinion of title. No title or lien search was performed by above named attorney and no warranty as to title has been provided herein.
+
+Please note if there is a mortgage on the property we will not be collecting doc stamps or paying them on your behalf and if the state audits and finds that you owe doc stamps you may have to pay a penalty. If you would like to inquire with the State as to whether you may be liable for these types of taxes you can call the Florida Department of Revenue at {{ firm.dor_phone }}.

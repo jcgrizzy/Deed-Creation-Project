@@ -16,10 +16,12 @@ The agent **fills and flags**. It does not compose deeds from scratch and it doe
 | `spec/routing-rules.md` | STOP (attorney review) and FLAG conditions |
 | `spec/workflow-stages.md` | File stages, owners, entry/exit criteria |
 | `spec/florida-requirements.md` | Statutory execution/recording checklist (each item has a verification status) |
-| `spec/cognito-build.md` | Cognito Forms build instructions for the client intake form (current task) |
-| `design/` | Approved intake form mockup (PNG + static HTML) |
+| `spec/cognito-build.md` | Cognito Forms build instructions for the client intake form (Phase 2) |
+| `spec/deed-templates.md` | How intake fields select deed clauses; cleanup items from the firm's source deeds |
+| `design/` | Approved Phase 1 intake form mockup (PNG + static HTML); Phase 2 adds fields, see `spec/cognito-build.md` |
 | `config/firm.json` | Fees, payment link, firm info — never hard-code these elsewhere |
-| `templates/` | Client intake emails (EN/ES); deed templates go here as they are added |
+| `templates/` | Client intake emails (EN/ES), grantor authorization draft, and `deeds/` master deed template (placeholders only) |
+| `scripts/render_deed.py` | Prototype: renders the master deed template against a sample record |
 | `samples/` | **Fictitious** test records only |
 
 If code and spec disagree, the spec wins. Change the spec first (in a PR), then the code.

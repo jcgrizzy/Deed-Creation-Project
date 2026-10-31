@@ -6,5 +6,17 @@
   "consultation_fee_usd": 250,
   "consultation_length_minutes": 30,
   "payment_link": "https://secure.lawpay.com/pages/kelleyandgrantpa/operating",
-  "dor_doc_stamp_reference": "Florida Dept. of Revenue - Documentary Stamp Tax (floridarevenue.com)"
+  "dor_doc_stamp_reference": "Florida Dept. of Revenue - Documentary Stamp Tax (floridarevenue.com)",
+  "dor_phone": "850-488-6800",
+  "deed_preparer": {
+    "name": "Cory S. Carano, Esq.",
+    "address_line_1": "370 Camino Gardens Blvd, Ste. 301",
+    "address_line_2": "Boca Raton, FL 33432"
+  },
+  "parcel_id_label": {
+    "_default": "Parcel Identification No.",
+    "Palm Beach": "Property Control No.",
+    "Broward": "Folio No.",
+    "_note": "Pending Conrad (spec/deed-templates.md C9)"
+  }
 }
